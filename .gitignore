@@ -1,5 +1,12 @@
 .idea
 
+# React
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
 # MNIST dataset
 training/dataset/
 
