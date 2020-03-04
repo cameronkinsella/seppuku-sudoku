@@ -80,7 +80,7 @@ def find_empty(bo):
     return None
 
 
-solve(board)
-print_board(board)
+# solve(board)
+# print_board(board)
 
 # Cameron Kinsella - Ethan Tracey 2020
