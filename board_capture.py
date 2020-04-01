@@ -8,7 +8,6 @@ from cnn import Net
 from solver import solve
 
 
-
 def capture_solve(input_image):
     # Grayscale and adaptive threshold
     img = cv2.GaussianBlur(input_image, (5, 5), 0)
@@ -21,7 +20,7 @@ def capture_solve(input_image):
     isolate = np.uint8(cv2.normalize(div, div, 0, 255, cv2.NORM_MINMAX))
     res2 = cv2.cvtColor(isolate, cv2.COLOR_GRAY2BGR)
     thresh = cv2.adaptiveThreshold(isolate, 255, 0, 1, 19, 2)
-    _, contour, hier = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contour, hier = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     # Grab the biggest contour (the board)
     max_area = 0
@@ -50,7 +49,7 @@ def capture_solve(input_image):
     close = cv2.morphologyEx(close, cv2.MORPH_DILATE, kernel_x, iterations=1)
 
     # Remove number contours, isolating vertical lines
-    _, contour, hier = cv2.findContours(close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contour, _ = cv2.findContours(close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contour:
         x, y, w, h = cv2.boundingRect(cnt)
         if h / w > 5:
@@ -69,7 +68,7 @@ def capture_solve(input_image):
     close = cv2.morphologyEx(close, cv2.MORPH_DILATE, kernel_y)
 
     # Remove number contours, isolating vertical lines
-    _, contour, _ = cv2.findContours(close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contour, _ = cv2.findContours(close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contour:
         x, y, w, h = cv2.boundingRect(cnt)
         if w / h > 5:
@@ -83,7 +82,7 @@ def capture_solve(input_image):
     isolate = cv2.bitwise_and(close_x, close_y)
 
     # Obtain centroids
-    _, contour, _ = cv2.findContours(isolate, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    contour, _ = cv2.findContours(isolate, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     centroids = []
     for cnt in contour:
         mom = cv2.moments(cnt)
@@ -169,7 +168,7 @@ def capture_solve(input_image):
                 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
                 model = Net()
-                model.load_state_dict(torch.load('training/results/model.pth', map_location=torch.device(device)))
+                model.load_state_dict(torch.load('model.pth', map_location=torch.device(device)))
                 model.eval()
 
                 p = transforms.Compose([transforms.Resize((28, 28)),
