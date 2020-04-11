@@ -61,8 +61,8 @@ class App extends Component {
               type="file"
               onChange={this.fileSelectedHandler}
               ref={fileInput => this.fileInput = fileInput}/>
-          <button onClick={() => this.fileInput.click()}>Pick File</button>
-          <button onClick={this.fileUploadHandler}>Upload</button>
+          <button style={{borderRadius: "8px 0 0 8px"}}   className="upload" onClick={() => this.fileInput.click()}>Pick File</button>
+          <button style={{borderRadius: "0 8px 8px 0"}}   className="upload" onClick={this.fileUploadHandler}>Upload</button>
         </div>
     );
   }

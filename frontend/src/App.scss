@@ -74,7 +74,7 @@ input[type="action"] {
 
 .button {
   background-color: #A374C6;
-  border: none;
+  border: 1px Solid Black;
   text-align: center;
   display: inline-block;
   font-size: 16px;
@@ -93,6 +93,11 @@ input[type="action"] {
 .button:hover {
   background-color: #532972;
   color: #A374C6;
+}
+.upload {
+  border:1px Solid black;
+  background-color: #A374C6
+
 }
 
 .SudokuBoard {
