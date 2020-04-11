@@ -11,8 +11,12 @@
     "jquery": "^3.4.1",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
+    "react-alert": "^7.0.0",
+    "react-alert-template-basic": "^1.0.0",
+    "react-colgroup": "^1.0.2",
     "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "react-table": "^7.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

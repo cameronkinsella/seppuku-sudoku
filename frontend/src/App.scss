@@ -36,3 +36,92 @@
     transform: rotate(360deg);
   }
 }
+
+
+h1 {
+  text-align: center;
+  font-family:"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 400;
+  font-size: 8vw;
+  color: #532972;
+}
+
+body {
+  background-color: #F0F0F0;
+}
+
+td {
+  border: solid thin;
+  height: 1.4em;
+  width: 1.4em;
+  text-align: center;
+  padding: 5px;
+}
+
+colgroup, tbody {
+  border: solid medium;
+}
+
+input[type="number"] {
+  font-size: 24px;
+  padding: 0;
+}
+
+input[type="action"] {
+  font-size: 24px;
+
+}
+
+.button {
+  background-color: #A374C6;
+  border: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  font-family:"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  width: 100%;
+  max-width: 100px;
+  min-width: 4px;
+  height: 50px;
+  border-radius: 8px;
+  margin: 1px 8px 6px 8px;
+}
+
+.button:hover {
+  background-color: #532972;
+  color: #A374C6;
+}
+
+.SudokuBoard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+table {
+  border-spacing: 0;
+  border: 1px solid black;
+
+  tr {
+    :last-child {
+      td {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  th,
+  td {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
+    :last-child {
+      border-right: 0;
+    }
+  }
+}}

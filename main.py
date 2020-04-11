@@ -12,7 +12,4 @@ def solve_board(request):
     solved = capture_solve(img)
 
     res = json.dumps(solved.tolist())
-    res = flask.jsonify(res)
-    res.headers.set('Access-Control-Allow-Origin', '*')
-    res.headers.set('Access-Control-Allow-Methods', 'POST')
     return res
