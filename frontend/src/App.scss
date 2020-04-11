@@ -88,6 +88,7 @@ input[type="action"] {
   height: 50px;
   border-radius: 8px;
   margin: 1px 8px 6px 8px;
+  outline: none;
 }
 
 .button:hover {
@@ -96,8 +97,11 @@ input[type="action"] {
 }
 .upload {
   border:1px Solid black;
-  background-color: #A374C6
-
+  background-color: #A374C6;
+  transition-duration: 0.4s;
+}
+.upload:hover {
+  background-color: #532972;
 }
 
 .SudokuBoard {
