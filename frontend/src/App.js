@@ -31,7 +31,7 @@ class App extends Component {
    fileUploadHandler = () => {
       const fd = new FormData();
       fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-      axios.post('/solve-board', fd, {
+      axios.post('https://us-central1-seppuku-sudoku.cloudfunctions.net/solve-board', fd, {
           onUploadProgress: progressEvent => {
               console.log('Upload Progress: ' + Math.round(progressEvent.loaded / progressEvent.total * 100) + '%')
           }
@@ -48,6 +48,7 @@ class App extends Component {
       const alert = this.props.alert;
     return (
         <div className="App">
+            <h1>Seppuku Sudoku</h1>
             <SudokuBoard className="SudokuBoard" output={this.state.board}/>
 
             <div className="Buttons">
