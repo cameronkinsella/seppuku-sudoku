@@ -6,6 +6,7 @@ from torchvision import transforms
 from PIL import Image
 from cnn import Net
 from solver import solve
+from scipy import ndimage
 
 
 def capture_solve(input_image):
@@ -157,14 +158,28 @@ def capture_solve(input_image):
     squares = np.reshape(squares, (-1, 9))
     board = np.zeros((9, 9))
 
+    mean_list = []
+
+    for x in squares:
+        for box in x:
+            gray = cv2.cvtColor(box, cv2.COLOR_BGR2GRAY)
+            img = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 57, 5)
+            denoise = ndimage.median_filter(img, 5)
+            white_pix_count = np.count_nonzero(denoise)
+            mean_list.append(white_pix_count)
+
+    else:
+        mean = np.mean(mean_list)
+
     for col, x in enumerate(squares):
         for row, box in enumerate(x):
             gray = cv2.cvtColor(box, cv2.COLOR_BGR2GRAY)
             img = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 57, 5)
 
-            mean = cv2.mean(img)
+            denoise = ndimage.median_filter(img, 5)
+            white_pix_count = np.count_nonzero(denoise)
 
-            if mean[0] > 30:
+            if white_pix_count > mean:
                 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
                 model = Net()
@@ -175,7 +190,7 @@ def capture_solve(input_image):
                                         transforms.ToTensor(),
                                         transforms.Normalize((0.1307,), (0.3081,))])
 
-                img = Image.fromarray(img)
+                img = Image.fromarray(denoise)
                 img = p(img)
                 img = img.view(1, 28, 28)
                 img = img.unsqueeze(0)

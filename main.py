@@ -7,14 +7,14 @@ from board_capture import capture_solve
 
 def solve_board(request):
     if request.method == 'OPTIONS':
-            headers = {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Max-Age': '3600'
-            }
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '3600'
+        }
 
-            return '', 204, headers
+        return '', 204, headers
 
     headers = {
         'Access-Control-Allow-Origin': '*',
