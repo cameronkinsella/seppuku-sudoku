@@ -5,4 +5,4 @@ numpy==1.18.1
 imutils==0.5.3
 opencv-python
 flask
-scipi==1.4.1
+scipy==1.4.1

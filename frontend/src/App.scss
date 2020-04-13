@@ -40,7 +40,7 @@
 
 h1 {
   text-align: center;
-  font-family:"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 400;
   font-size: 8vw;
   color: #532972;
@@ -64,7 +64,7 @@ colgroup, tbody {
 
 input[type="number"] {
   font-size: 24px;
-  padding: 0;
+  border-style: none;
 }
 
 input[type="action"] {
@@ -78,7 +78,7 @@ input[type="action"] {
   text-align: center;
   display: inline-block;
   font-size: 16px;
-  font-family:"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 400;
   cursor: pointer;
   transition-duration: 0.4s;
@@ -95,42 +95,60 @@ input[type="action"] {
   background-color: #532972;
   color: #A374C6;
 }
+
 .upload {
-  border:1px Solid black;
+  border: 1px Solid black;
   background-color: #A374C6;
   transition-duration: 0.4s;
 }
+
 .upload:hover {
   background-color: #532972;
 }
-
+body {
+  margin: 0;
+}
+.switch {
+  margin: 50px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#number {
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
 .SudokuBoard {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
 
-table {
-  border-spacing: 0;
-  border: 1px solid black;
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
 
-  tr {
-    :last-child {
-      td {
-        border-bottom: 0;
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+
+      :last-child {
+        border-right: 0;
       }
     }
   }
-
-  th,
-  td {
-    margin: 0;
-    padding: 0.5rem;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-
-    :last-child {
-      border-right: 0;
-    }
-  }
-}}
+}
