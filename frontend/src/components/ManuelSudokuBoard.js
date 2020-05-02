@@ -28,7 +28,7 @@ export default function Table({ output }) {
 
   const handleChange = (row, col, event) => {
     let copy = [...board]
-    copy[row][col] = event.target.value.replace(/\+|-|0|\`/ig, '');
+    copy[row][col] = event.target.value.replace(/[^1-9]/ig, '');
     setBoard(copy)
   }
 
