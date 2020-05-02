@@ -99,7 +99,7 @@ input[type="action"] {
   font-size: 16px;
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 400;
-  cursor: pointer;
+  cursor: not-allowed;
   transition-duration: 0.4s;
   width: 100%;
   max-width: 100px;
@@ -124,20 +124,27 @@ input[type="action"] {
 .upload:hover {
   background-color: #532972;
 }
+.disabledupload {
+  border: 1px Solid black;
+  background-color: #858282;
+  transition-duration: 0.4s;
+  outline: none;
+  cursor: not-allowed;
+}
 body {
   margin: 0;
 }
 .switch {
   margin: 50px;
 }
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type=number] {
+
+input[type=text] {
   text-align: center;
   background-color: #F0F0F0;
+  border:none;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 
 }
 #number {
