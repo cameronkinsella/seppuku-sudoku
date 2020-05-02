@@ -3,10 +3,12 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   build:
+    working_directory: ~/seppuku-sudoku/frontend
     executor:
       name: node/default
     steps:
-      - checkout
+      - checkout:
+          path: ~/seppuku-sudoku
       - node/with-cache:
           steps:
             - run: yarn install
