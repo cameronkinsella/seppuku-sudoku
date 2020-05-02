@@ -1,5 +1,5 @@
 import React from "react";
-import {useTable} from "react-table";
+import { useTable } from "react-table";
 import '../App.scss';
 
 function setNumbers(nums) {
@@ -22,7 +22,7 @@ function setNumbers(nums) {
   return out;
 }
 
-export default function Table({output}) {
+export default function Table({ output }) {
   const columns = React.useMemo(
     () => [
       {
@@ -63,7 +63,7 @@ export default function Table({output}) {
   );
 
   // Use the state and functions returned from useTable to build your UI
-  const {getTableProps, getTableBodyProps, rows, prepareRow} = useTable({
+  const { getTableProps, getTableBodyProps, rows, prepareRow } = useTable({
     columns,
     data
   });

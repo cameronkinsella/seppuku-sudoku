@@ -1,21 +1,34 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.scss';
 import axios from 'axios';
-import SudokuBoard from "./Components/SudokuBoard";
-import ManuelSudokuBoard from "./Components/ManuelSudokuBoard";
-import {withAlert} from 'react-alert'
+import SudokuBoard from './components/SudokuBoard';
+import ManuelSudokuBoard from './components/ManuelSudokuBoard';
+import { withAlert } from 'react-alert'
 import Switch from 'react-ios-switch';
+import SudokuSolver from './functions/SudokuSolver'
 
 const blankBoard = [
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-  [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '']
+];
+
+const blankBoard2 = [
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '']
 ];
 
 class App extends Component {
@@ -24,10 +37,12 @@ class App extends Component {
     this.state = {
       selectedFile: null,
       board: blankBoard,
+      manualBoard: blankBoard2,
       checked: false,
     };
   }
 
+  solver = new SudokuSolver()
 
   fileSelectedHandler = event => {
     this.setState({
@@ -45,67 +60,80 @@ class App extends Component {
     })
       .then(res => {
         console.log(res);
-        this.setState({board: res.data})
+        this.setState({ board: res.data })
       })
 
   };
+
+  butts = async () => {
+    let copy = [...this.state.manualBoard]
+    for (let i = 0; i < copy.length; i++) {
+      for (let j = 0; j < copy.length; j++) {
+        if (!copy[i][j]) copy[i][j] = '0'
+      }
+    }
+    let stringBoard = [].concat(...copy).join('')
+    return this.solver.solve(stringBoard, { result: 'chunks' });
+  }
+
+  handleSolve = () => {
+    //console.log(await this.butts())
+    this.butts().then(x => {
+      this.setState({ manualBoard: x })
+      this.setState({ checked: false })
+      this.setState({ checked: true })
+      console.log(this.state.manualBoard)
+    })
+  }
 
 
   render() {
     const alert = this.props.alert;
 
 
-      return (
-        <div className="App">
-          <h1>Seppuku Sudoku</h1>
+    return (
+      <div className='App'>
+        <h1>Seppuku Sudoku</h1>
+        {
+          this.state.checked ?
+            <ManuelSudokuBoard className='SudokuBoard' output={this.state.manualBoard}/> :
+            <SudokuBoard className='SudokuBoard' output={this.state.board}/>
+        }
+
+        <div className='Buttons'>
+          <button className='button' onClick={() => window.location.reload()}>Try Again!</button>
+          <Switch checked={this.state.checked}
+                  onChange={checked => this.setState({ checked: checked })}/>
           {
             this.state.checked ?
-              <ManuelSudokuBoard className="SudokuBoard" output={this.state.board}/>:
-            <SudokuBoard className="SudokuBoard" output={this.state.board}/>
+              <button className='button' onClick={() => {
+                this.handleSolve()
+                alert.show('Solved!')
+              }}>Solve!
+              </button> :
+              <button className='disabled'>
+                Solve!
+              </button>
           }
-
-          <div className="Buttons">
-            <button className="button" onClick={() => window.location.reload()}>Try Again!</button>
-            <Switch checked={this.state.checked}
-                    onChange={checked => this.setState({checked: checked})}/>
-            {
-              this.state.checked ?
-              <button className="button" onClick={() => {
-              alert.show('Solved!')
-            }}>Solve!
-            </button>:
-                <button className="disabled">
-                  Solve!
-                </button>
-            }
-          </div>
-          <input
-            style={{display: 'none'}}
-            type="file"
-            onChange={this.fileSelectedHandler}
-            ref={fileInput => this.fileInput = fileInput}/>
-          <button style={{borderRadius: "8px 0 0 8px"}} className="upload"
-                  onClick={() => this.fileInput.click()}>Pick File
-          </button>
-          <button style={{borderRadius: "0 8px 8px 0"}} className="upload"
-                  onClick={this.fileUploadHandler}>Upload
-          </button>
         </div>
-      );
-    }
+        <input
+          style={{ display: 'none' }}
+          type='file'
+          onChange={this.fileSelectedHandler}
+          ref={fileInput => this.fileInput = fileInput}/>
+        <button style={{ borderRadius: '8px 0 0 8px' }} className='upload'
+                onClick={() => this.fileInput.click()}>Pick File
+        </button>
+        <button style={{ borderRadius: '0 8px 8px 0' }} className='upload'
+                onClick={this.fileUploadHandler}>Upload
+        </button>
+      </div>
+    );
   }
-
-
-const output = [
-  [5.0, 8.0, 3.0, 6.0, 9.0, 4.0, 7.0, 2.0, 1.0],
-  [7.0, 1.0, 6.0, 8.0, 3.0, 2.0, 5.0, 4.0, 9.0],
-  [2.0, 9.0, 4.0, 1.0, 7.0, 5.0, 3.0, 8.0, 6.0],
-  [6.0, 7.0, 1.0, 5.0, 2.0, 8.0, 4.0, 9.0, 3.0],
-  [8.0, 2.0, 9.0, 7.0, 4.0, 3.0, 1.0, 6.0, 5.0],
-  [4.0, 3.0, 5.0, 9.0, 1.0, 6.0, 8.0, 7.0, 2.0],
-  [1.0, 5.0, 8.0, 2.0, 6.0, 7.0, 9.0, 3.0, 4.0],
-  [3.0, 6.0, 7.0, 4.0, 5.0, 9.0, 2.0, 1.0, 8.0],
-  [9.0, 4.0, 2.0, 3.0, 8.0, 1.0, 6.0, 5.0, 7.0]
-];
+}
 
 export default withAlert()(App);
+
+
+// !!! CURSED PROJECT !!!
+
