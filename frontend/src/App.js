@@ -68,10 +68,16 @@ class App extends Component {
             <button className="button" onClick={() => window.location.reload()}>Try Again!</button>
             <Switch checked={this.state.checked}
                     onChange={checked => this.setState({checked: checked})}/>
-            <button className="button" onClick={() => {
+            {
+              this.state.checked ?
+              <button className="button" onClick={() => {
               alert.show('Solved!')
             }}>Solve!
-            </button>
+            </button>:
+                <button className="disabled">
+                  Solve!
+                </button>
+            }
           </div>
           <input
             style={{display: 'none'}}
