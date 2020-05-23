@@ -77,7 +77,6 @@ class App extends Component {
   }
 
   handleSolve = () => {
-    //console.log(await this.butts())
     this.butts().then(x => {
       this.setState({ manualBoard: x })
       this.setState({ checked: false })

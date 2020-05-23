@@ -10,7 +10,15 @@ jobs:
       - checkout:
           path: ~/seppuku-sudoku
       - node/with-cache:
+          cache-version: v2
+          dir: ~/seppuku-sudoku/frontend/node_modules
           steps:
             - run: yarn install
-            - run: yarn build
-            - run: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
+      - run: yarn build
+      - run: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
+
+workflows:
+  deploy:
+    jobs:
+      - build-deploy:
+          context: Firebase
