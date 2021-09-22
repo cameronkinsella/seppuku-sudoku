@@ -27,5 +27,5 @@ for more details on the digit recognition CNN.
 ### Preview
 
 <p align="center">
-    <img src="https://i.gyazo.com/12bf2f4ef7ba1cbcf8af3a30c42f1f27.png" alt="preview image"/>
+    <img src="https://github.com/cameronkinsella/seppuku-sudoku/blob/master/images/preview-image.png" alt="preview image"/>
 </p>
