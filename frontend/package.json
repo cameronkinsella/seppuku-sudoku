@@ -10,7 +10,7 @@
     "axios": "^0.19.2",
     "gh-pages": "^2.2.0",
     "jquery": "^3.4.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^6.0.0",
     "react": "^16.13.0",
     "react-alert": "^7.0.0",
     "react-alert-template-basic": "^1.0.0",
