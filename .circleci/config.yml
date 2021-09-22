@@ -6,6 +6,7 @@ jobs:
     working_directory: ~/seppuku-sudoku/frontend
     executor:
       name: node/default
+      tag: "14.17"
     steps:
       - checkout:
           path: ~/seppuku-sudoku
